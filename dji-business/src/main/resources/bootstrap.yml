@@ -1,0 +1,50 @@
+# Tomcat
+server:
+  port: 9205
+# Spring
+spring:
+  main:
+    #解决升级spring boot 2.6后，因循环引用导致启动报错问题
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  application:
+    # 应用名称
+    name: iims-business
+  profiles:
+    # 环境配置
+    active: local
+# 暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+# 配置日志位置
+logging:
+  file:
+    name: logs/${spring.application.name}/info.log
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 50000 # 连接超时时间 1s
+            read-timeout: 50000 # 读取超时时间 1s
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+        # 命名空间 iims(灌区综合管理系统)
+        namespace: wygq
+      config:
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 命名空间 iims(灌区综合管理系统)
+        namespace: wygq
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
