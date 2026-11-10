@@ -13,38 +13,22 @@ spring:
   profiles:
     # 环境配置
     active: local
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 # 暴露所有端点
 management:
   endpoints:
     web:
       exposure:
         include: '*'
-# 配置日志位置
-logging:
-  file:
-    name: logs/${spring.application.name}/info.log
-  cloud:
-    openfeign:
-      client:
-        config:
-          default:
-            connect-timeout: 50000 # 连接超时时间 1s
-            read-timeout: 50000 # 读取超时时间 1s
-    nacos:
-      username: nacos
-      password: nacos
-      discovery:
-        # 服务注册地址
-        server-addr: 127.0.0.1:8848
-        # 命名空间 iims(灌区综合管理系统)
-        namespace: wygq
-      config:
-        # 配置中心地址
-        server-addr: 127.0.0.1:8848
-        # 命名空间 iims(灌区综合管理系统)
-        namespace: wygq
-        # 配置文件格式
-        file-extension: yml
-        # 共享配置
-        shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+# 大疆司空配置
+dji:
+  spatium:
+    app-key: ${DJI_SPATIUM_APP_KEY:test-key}
+    app-secret: ${DJI_SPATIUM_APP_SECRET:test-secret}
+    host: ${DJI_SPATIUM_HOST:https://api-test.dji.com}
+    # 回调校验密钥，司空后台配置的回调签名密钥
+    callback-secret: ${DJI_CALLBACK_SECRET:callback-test-secret}
