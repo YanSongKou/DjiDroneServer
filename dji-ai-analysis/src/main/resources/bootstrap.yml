@@ -1,0 +1,26 @@
+# Tomcat
+server:
+  port: 9201
+# Spring
+spring:
+  main:
+    #解决升级spring boot 2.6后，因循环引用导致启动报错问题
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  application:
+    # 应用名称
+    name: dji-ai-analysis
+  profiles:
+    # 环境配置
+    active: local
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+# 暴露所有端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

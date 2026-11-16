@@ -3,7 +3,6 @@ package com.dji.business.controller;
 import com.dji.common.constants.DjiSpatiumConstant;
 import com.dji.common.domain.dto.DjiCallbackDTO;
 import com.dji.common.domain.dto.DjiMediaAIMsgDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DjiSpatiumCallbackController {
 
     private final RabbitTemplate rabbitTemplate;
-    private final ObjectMapper objectMapper;
 
     /**
      * 司空回调入口
